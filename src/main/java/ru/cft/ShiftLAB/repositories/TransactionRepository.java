@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.cft.ShiftLAB.models.Transaction;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository

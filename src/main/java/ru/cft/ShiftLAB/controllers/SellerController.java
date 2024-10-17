@@ -3,6 +3,8 @@ package ru.cft.ShiftLAB.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.cft.ShiftLAB.controllers.dto.BestSellerRequest;
+import ru.cft.ShiftLAB.controllers.dto.DurationRequest;
 import ru.cft.ShiftLAB.controllers.dto.SellerCreateRequest;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.services.SellerService;
@@ -44,4 +46,6 @@ public class SellerController {
     public void deleteSeller(@PathVariable("id") long id) {
         sellerService.delete(id);
     }
+
+
 }
