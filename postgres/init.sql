@@ -9,7 +9,7 @@ CREATE TYPE payment_state AS ENUM ('CASH', 'CARD', 'TRANSFER');
 
 CREATE TABLE transaction(
 	id serial primary key,
-    seller integer REFERENCES seller,
+    seller integer REFERENCES seller(id),
     amount integer,
     paymentType payment_state,
 	transactionDate date

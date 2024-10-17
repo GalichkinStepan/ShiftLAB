@@ -7,7 +7,6 @@ import ru.cft.ShiftLAB.controllers.dto.SellerCreateRequest;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
 import ru.cft.ShiftLAB.services.SellerService;
-
 import java.util.List;
 
 @Service(value = "sellerService")

@@ -12,16 +12,15 @@ import java.util.List;
 public interface TransactionService {
 
     // Получить список всех транзакций
-    public List<Seller> getAll();
+    public List<Transaction> getAll();
 
     // Получить информацию о конкретной транзакции
     public Transaction getById(long id);
 
     // Создать новую транзакцию
-    public void create(TransactionCreateRequest transactionInfo);
+    public Transaction create(TransactionCreateRequest transactionInfo);
 
     // Получить все транзакции продавца
     public List<Transaction> getAllForSeller(long sellerId);
-
 
 }

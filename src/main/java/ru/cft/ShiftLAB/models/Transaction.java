@@ -8,11 +8,19 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "seller")
+@Table(name = "transaction")
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
+
+    public Transaction(Seller seller, int amount, String paymentType)
+    {
+        this.seller = seller;
+        this.amount = amount;
+        this.paymentType = paymentType;
+        this.transactionDate = LocalDateTime.now();
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +34,7 @@ public class Transaction {
     private int amount;
 
     @Column(name = "paymenttype")
-    private int paymentType; //TODO: Доделать тип данных
+    private String paymentType; //TODO: Доделать тип данных
 
     @Column(name = "transactiondate")
     private LocalDateTime transactionDate;
