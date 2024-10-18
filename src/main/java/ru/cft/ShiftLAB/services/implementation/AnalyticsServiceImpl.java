@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.cft.ShiftLAB.controllers.dto.BestSellerRequest;
 import ru.cft.ShiftLAB.controllers.dto.DurationRequest;
+import ru.cft.ShiftLAB.exceptions.CommonException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
 import ru.cft.ShiftLAB.repositories.TransactionRepository;
@@ -19,20 +20,29 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 
     // Получить самого продуктивного продавца
     @Override
-    public Seller getBestSeller(DurationRequest durationRequest)
-    {
-        return sellerRepository.bestSeller(durationRequest.startTime(), durationRequest.endTime());
+    public Seller getBestSeller(DurationRequest durationRequest) {
+        Seller bestSeller = sellerRepository.bestSeller(durationRequest.startTime(), durationRequest.endTime());
+        if(bestSeller != null) {
+            return bestSeller;
+        }
+        else{
+            throw new CommonException(404, "SELLER_NOT_FOUND");
+        }
     }
 
 
     @Override
-    public List<Seller> getLowSumSellers(DurationRequest durationRequest, int boundaryAmount)
-    {
-        return sellerRepository.lowSumSellers(durationRequest.startTime(), durationRequest.endTime(), boundaryAmount);
+    public List<Seller> getLowSumSellers(DurationRequest durationRequest, int boundaryAmount) {
+        List<Seller> lowSumSellers = sellerRepository.lowSumSellers(durationRequest.startTime(), durationRequest.endTime(), boundaryAmount);
+        if(!lowSumSellers.isEmpty()) {
+            return lowSumSellers;
+        }
+        else {
+            throw new CommonException(404, "SELLERS_NOT_FOUND");
+        }
     }
 
-    public void getBestTime()
-    {
+    public void getBestTime() {
 
     }
 

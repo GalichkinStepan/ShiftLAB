@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.cft.ShiftLAB.controllers.dto.BestSellerRequest;
 import ru.cft.ShiftLAB.controllers.dto.DurationRequest;
 import ru.cft.ShiftLAB.controllers.dto.SellerCreateRequest;
+import ru.cft.ShiftLAB.exceptions.CommonException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
 import ru.cft.ShiftLAB.services.SellerService;
@@ -27,8 +28,7 @@ public class SellerServiceImpl implements SellerService {
             return sellers;
         }
         else{
-            // TODO: Кинуть ексепшен пустая БД
-            return null;
+            throw new CommonException(404, "DATA_IS_EMPTY");
         }
 
     }
@@ -36,30 +36,46 @@ public class SellerServiceImpl implements SellerService {
     // Инфо о конкретном продавце
     @Override
     public Seller getById(long id){
-        return sellerRepository.findById(id).get();
-        // TODO: Кинуть исключение пользователь не найден
+        try {
+            Seller seller = sellerRepository.findById(id).get();
+            return seller;
+        }
+        catch (Exception ex) {
+            throw new CommonException(404, "SELLER_NOT_FOUND");
+        }
+
     }
 
     // Создать нового продавца
     @Override
     public Seller create(SellerCreateRequest sellerInfo){
-        Seller newSeller = new Seller(sellerInfo.name(), sellerInfo.contactInfo());
-        sellerRepository.save(newSeller);
-        return newSeller;
-        //TODO: Продумать исключения
+            Seller newSeller = new Seller(sellerInfo.name(), sellerInfo.contactInfo());
+            sellerRepository.save(newSeller);
+            return newSeller;
     }
 
     // Обновить инфо о продавце
     @Override
     public void update(long id, SellerCreateRequest sellerInfo){
-        Seller seller = sellerRepository.findById(id).get();
-        seller.update(sellerInfo.name(), sellerInfo.contactInfo());
-        sellerRepository.save(seller);
+        try {
+            Seller seller = sellerRepository.findById(id).get();
+            seller.update(sellerInfo.name(), sellerInfo.contactInfo());
+            sellerRepository.save(seller);
+        }
+        catch (Exception ex) {
+            throw new CommonException(404, "SELLER_NOT_FOUND");
+        }
     }
 
     // Удалить продавца
     @Override
     public void delete(long id){
+        try {
+            Seller seller = sellerRepository.findById(id).get();
+        }
+        catch (Exception ex) {
+            throw new CommonException(404, "SELLER_NOT_FOUND");
+        }
         sellerRepository.deleteById(id);
     }
 }

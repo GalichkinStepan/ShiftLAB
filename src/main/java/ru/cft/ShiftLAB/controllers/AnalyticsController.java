@@ -23,11 +23,13 @@ public class AnalyticsController {
     public Seller bestSeller(@RequestBody DurationRequest durationRequest){
         return analyticsService.getBestSeller(durationRequest);
     }
+
     // Получить список продавцов с суммой меньше указанной
     @GetMapping("/lowsumsellers")
     public List<Seller> lowSumSellers(@RequestBody DurationRequest durationRequest, @RequestParam int boundaryAmount){
         return analyticsService.getLowSumSellers(durationRequest, boundaryAmount);
     }
+
     // Получить самое продуктивное время продавца
 
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.cft.ShiftLAB.controllers.dto.TransactionCreateRequest;
+import ru.cft.ShiftLAB.exceptions.CommonException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.models.Transaction;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
@@ -23,13 +24,25 @@ public class TransactionServiceImpl implements TransactionService {
     // Получить список всех транзакций
     @Override
     public List<Transaction> getAll(){
-        return transactionRepository.findAll();
+        List<Transaction> transactions = transactionRepository.findAll();
+
+        if(!transactions.isEmpty()) {
+            return transactions;
+        }
+        else{
+            throw new CommonException(404, "DATA_IS_EMPTY");
+        }
     }
 
     // Получить информацию о конкретной транзакции
     @Override
     public Transaction getById(long id) {
-        return  transactionRepository.findById(id).get();
+        try{
+            return  transactionRepository.findById(id).get();
+        }
+        catch (Exception ex) {
+            throw new CommonException(404, "TRANSACTION_NOT_FOUND");
+        }
     }
 
     // Создать новую транзакцию
@@ -48,6 +61,12 @@ public class TransactionServiceImpl implements TransactionService {
     // Получить все транзакции продавца
     @Override
     public List<Transaction> getAllForSeller(long sellerId){
-        return transactionRepository.getAllForSeller(sellerId);
+        List<Transaction> transactions = transactionRepository.getAllForSeller(sellerId);
+        if(!transactions.isEmpty()) {
+            return transactions;
+        }
+        else {
+            throw new CommonException(404, "DATA_IS_EMPTY");
+        }
     }
 }
