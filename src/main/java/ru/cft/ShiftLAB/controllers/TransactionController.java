@@ -2,6 +2,8 @@ package ru.cft.ShiftLAB.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.ShiftLAB.controllers.dto.SellerCreateRequest;
 import ru.cft.ShiftLAB.controllers.dto.TransactionCreateRequest;
@@ -22,7 +24,7 @@ public class TransactionController {
 
     // Получить список всех транзакций
     @GetMapping
-    public List<Transaction> getAllSellers(){
+    public List<Transaction> getAllTransactions(){
         return transactionService.getAll();
     }
 
@@ -34,8 +36,8 @@ public class TransactionController {
 
     // Создать новую транзакцию
     @PostMapping
-    public Transaction createSeller(@RequestBody TransactionCreateRequest transactionCreateRequest) {
-        return transactionService.create(transactionCreateRequest);
+    public ResponseEntity<Transaction> createTransaction(@RequestBody TransactionCreateRequest transactionCreateRequest) {
+        return new ResponseEntity<>(transactionService.create(transactionCreateRequest), HttpStatus.ACCEPTED);
     }
 
     // Получить все транзакции продавца
