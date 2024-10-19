@@ -8,6 +8,7 @@ class ShiftLabApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
