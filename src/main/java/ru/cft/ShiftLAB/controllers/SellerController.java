@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.cft.ShiftLAB.controllers.dto.BestSellerRequest;
-import ru.cft.ShiftLAB.controllers.dto.DurationRequest;
 import ru.cft.ShiftLAB.controllers.dto.SellerCreateRequest;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.services.SellerService;
@@ -40,8 +38,8 @@ public class SellerController {
         return new ResponseEntity<>(seller, HttpStatus.CREATED);
     }
     // Обновить инфо о продавце
-    @PutMapping
-    public ResponseEntity<Void> updateSeller(@RequestParam Long id, @RequestBody SellerCreateRequest sellerCreateRequest){
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateSeller(@PathVariable Long id, @RequestBody SellerCreateRequest sellerCreateRequest){
         sellerService.update(id, sellerCreateRequest);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
