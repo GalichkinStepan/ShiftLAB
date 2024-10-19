@@ -34,8 +34,8 @@ class TransactionServiceTest {
     @Test
     void getAllNotEmpty() {
 
-        Transaction transaction1 = new Transaction(new Seller(
-                "Galichkin", "+79130084886"),
+        Transaction transaction1 = new Transaction(
+                new Seller("Galichkin", "+79130084886"),
                 100,
                 "CASH");
         Transaction transaction2 = new Transaction(
@@ -63,11 +63,10 @@ class TransactionServiceTest {
     @Test
     void getByIdFound(){
         Mockito.when(transactionRepository.findById(Mockito.anyLong()))
-                .thenReturn(
-                        Optional.of(new Transaction(new Seller(
-                                "Galichkin", "+79130084886"),
-                                100,
-                                "CASH"))
+                .thenReturn(Optional.of(new Transaction(
+                                        new Seller("Galichkin", "+79130084886"),
+                                        100,
+                                        "CASH"))
                 );
 
         Transaction gettingTransaction = transactionService.getById(1);

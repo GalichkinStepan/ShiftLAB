@@ -75,7 +75,8 @@ class SellerServiceTest {
 
     @Test
     void create(){
-        SellerCreateRequest sellerCreateRequest = new SellerCreateRequest("Galichkin", "+79130084886");
+        SellerCreateRequest sellerCreateRequest =
+                new SellerCreateRequest("Galichkin", "+79130084886");
         Seller seller = new Seller("Galichkin", "+79130084886");
 
         Mockito.when(sellerRepository.save(Mockito.any()))
@@ -92,7 +93,8 @@ class SellerServiceTest {
 
     @Test
     void updateNotFound(){
-        SellerCreateRequest sellerCreateRequest = new SellerCreateRequest("Galichkin", "+79130084886");
+        SellerCreateRequest sellerCreateRequest =
+                new SellerCreateRequest("Galichkin", "+79130084886");
         Mockito.when(sellerRepository.findById(Mockito.anyLong()))
                 .thenReturn(
                         Optional.empty()
