@@ -34,7 +34,7 @@ public class Transaction {
     private int amount;
 
     @Column(name = "paymenttype")
-    private String paymentType; //TODO: Доделать тип данных
+    private String paymentType;
 
     @Column(name = "transactiondate")
     private LocalDateTime transactionDate;

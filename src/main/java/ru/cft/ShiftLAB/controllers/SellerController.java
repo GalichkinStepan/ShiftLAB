@@ -37,17 +37,17 @@ public class SellerController {
         Seller seller = sellerService.create(sellerCreateRequest);
         return new ResponseEntity<>(seller, HttpStatus.CREATED);
     }
+
     // Обновить инфо о продавце
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateSeller(@PathVariable Long id, @RequestBody SellerCreateRequest sellerCreateRequest){
         sellerService.update(id, sellerCreateRequest);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
     // Удалить продавца
     @DeleteMapping("/{id}")
     public void deleteSeller(@PathVariable("id") long id) {
         sellerService.delete(id);
     }
-
-
 }

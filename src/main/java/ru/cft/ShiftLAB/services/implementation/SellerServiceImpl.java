@@ -1,12 +1,9 @@
 package ru.cft.ShiftLAB.services.implementation;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.cft.ShiftLAB.controllers.dto.BestSellerRequest;
-import ru.cft.ShiftLAB.controllers.dto.DurationRequest;
 import ru.cft.ShiftLAB.controllers.dto.SellerCreateRequest;
-import ru.cft.ShiftLAB.exceptions.CommonException;
+import ru.cft.ShiftLAB.exceptions.NotFoundException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
 import ru.cft.ShiftLAB.services.SellerService;
@@ -28,7 +25,7 @@ public class SellerServiceImpl implements SellerService {
             return sellers;
         }
         else{
-            throw new CommonException(404, "DATA_IS_EMPTY");
+            throw new NotFoundException(404, "DATA_IS_EMPTY");
         }
 
     }
@@ -41,7 +38,7 @@ public class SellerServiceImpl implements SellerService {
             return seller;
         }
         catch (Exception ex) {
-            throw new CommonException(404, "SELLER_NOT_FOUND");
+            throw new NotFoundException(404, "SELLER_NOT_FOUND");
         }
 
     }
@@ -63,7 +60,7 @@ public class SellerServiceImpl implements SellerService {
             sellerRepository.save(seller);
         }
         catch (Exception ex) {
-            throw new CommonException(404, "SELLER_NOT_FOUND");
+            throw new NotFoundException(404, "SELLER_NOT_FOUND");
         }
     }
 
@@ -74,7 +71,7 @@ public class SellerServiceImpl implements SellerService {
             Seller seller = sellerRepository.findById(id).get();
         }
         catch (Exception ex) {
-            throw new CommonException(404, "SELLER_NOT_FOUND");
+            throw new NotFoundException(404, "SELLER_NOT_FOUND");
         }
         sellerRepository.deleteById(id);
     }

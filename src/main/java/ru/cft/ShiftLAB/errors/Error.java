@@ -1,4 +1,4 @@
-package ru.cft.ShiftLAB.error;
+package ru.cft.ShiftLAB.errors;
 
 import lombok.Value;
 

@@ -2,12 +2,10 @@ package ru.cft.ShiftLAB.services.implementation;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.cft.ShiftLAB.controllers.dto.BestSellerRequest;
 import ru.cft.ShiftLAB.controllers.dto.DurationRequest;
-import ru.cft.ShiftLAB.exceptions.CommonException;
+import ru.cft.ShiftLAB.exceptions.NotFoundException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
-import ru.cft.ShiftLAB.repositories.TransactionRepository;
 import ru.cft.ShiftLAB.services.AnalyticsService;
 
 import java.util.List;
@@ -26,7 +24,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
             return bestSeller;
         }
         else{
-            throw new CommonException(404, "SELLER_NOT_FOUND");
+            throw new NotFoundException(404, "SELLER_NOT_FOUND");
         }
     }
 
@@ -38,12 +36,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
             return lowSumSellers;
         }
         else {
-            throw new CommonException(404, "SELLERS_NOT_FOUND");
+            throw new NotFoundException(404, "SELLERS_NOT_FOUND");
         }
     }
-
-    public void getBestTime() {
-
-    }
-
 }

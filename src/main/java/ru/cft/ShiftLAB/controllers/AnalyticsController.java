@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AnalyticsController {
 
-     private final AnalyticsService analyticsService;
+    private final AnalyticsService analyticsService;
 
     // Получить самого продуктивного продавца
     @GetMapping("/bestseller")
@@ -29,7 +29,4 @@ public class AnalyticsController {
     public List<Seller> lowSumSellers(@RequestBody DurationRequest durationRequest, @RequestParam int boundaryAmount){
         return analyticsService.getLowSumSellers(durationRequest, boundaryAmount);
     }
-
-    // Получить самое продуктивное время продавца
-
 }

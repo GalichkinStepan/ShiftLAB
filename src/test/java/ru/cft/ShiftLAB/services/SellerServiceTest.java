@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.cft.ShiftLAB.controllers.dto.SellerCreateRequest;
-import ru.cft.ShiftLAB.exceptions.CommonException;
+import ru.cft.ShiftLAB.exceptions.NotFoundException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
 import ru.cft.ShiftLAB.services.implementation.SellerServiceImpl;
@@ -45,7 +45,7 @@ class SellerServiceTest {
         List<Seller> emptyListSellers = new ArrayList<>();
         Mockito.when(sellerRepository.findAll()).thenReturn(emptyListSellers);
 
-        Assertions.assertThrows(CommonException.class, () -> sellerService.getAll());
+        Assertions.assertThrows(NotFoundException.class, () -> sellerService.getAll());
     }
 
     @Test
@@ -70,7 +70,7 @@ class SellerServiceTest {
                 .thenReturn(
                         Optional.empty()
                 );
-        Assertions.assertThrows(CommonException.class, () -> sellerService.getById(1));
+        Assertions.assertThrows(NotFoundException.class, () -> sellerService.getById(1));
     }
 
     @Test
@@ -100,7 +100,7 @@ class SellerServiceTest {
                         Optional.empty()
                 );
 
-        Assertions.assertThrows(CommonException.class, () -> sellerService.update(1, sellerCreateRequest));
+        Assertions.assertThrows(NotFoundException.class, () -> sellerService.update(1, sellerCreateRequest));
 
     }
 
@@ -110,7 +110,7 @@ class SellerServiceTest {
                 .thenReturn(
                         Optional.empty()
                 );
-        Assertions.assertThrows(CommonException.class, () -> sellerService.getById((long)1));
+        Assertions.assertThrows(NotFoundException.class, () -> sellerService.getById((long)1));
     }
 
 }

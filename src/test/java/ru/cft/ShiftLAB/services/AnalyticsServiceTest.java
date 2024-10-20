@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.cft.ShiftLAB.controllers.dto.DurationRequest;
-import ru.cft.ShiftLAB.exceptions.CommonException;
+import ru.cft.ShiftLAB.exceptions.NotFoundException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
 import ru.cft.ShiftLAB.services.implementation.AnalyticsServiceImpl;
@@ -50,7 +50,7 @@ class AnalyticsServiceTest {
                         LocalDateTime.parse("2024-10-18T18:27:43"));
         Mockito.when(sellerRepository.bestSeller(Mockito.any(), Mockito.any())).thenReturn(null);
 
-        Assertions.assertThrows(CommonException.class, () -> analyticsService.getBestSeller(durationRequest));
+        Assertions.assertThrows(NotFoundException.class, () -> analyticsService.getBestSeller(durationRequest));
     }
 
     @Test
@@ -80,7 +80,7 @@ class AnalyticsServiceTest {
         List<Seller> emptyListSellers = new ArrayList<>();
         Mockito.when(sellerRepository.lowSumSellers(Mockito.any(), Mockito.any(), Mockito.anyInt())).thenReturn(emptyListSellers);
 
-        Assertions.assertThrows(CommonException.class, () -> analyticsService.getLowSumSellers(durationRequest, 100));
+        Assertions.assertThrows(NotFoundException.class, () -> analyticsService.getLowSumSellers(durationRequest, 100));
     }
 
 }

@@ -1,4 +1,4 @@
-package ru.cft.ShiftLAB.error;
+package ru.cft.ShiftLAB.errors;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import ru.cft.ShiftLAB.exceptions.CommonException;
+import ru.cft.ShiftLAB.exceptions.NotFoundException;
 
 @RestControllerAdvice
 @Slf4j
@@ -27,8 +27,8 @@ public class CommonExceptionHandler {
     }
 
     private static HttpStatus getHttpStatus(Exception exception) {
-        if(exception instanceof CommonException) {
-            if(((CommonException) exception).getErrorCode() == 404) {
+        if(exception instanceof NotFoundException) {
+            if(((NotFoundException) exception).getErrorCode() == 404) {
                 return HttpStatus.NOT_FOUND;
             }
         }
@@ -53,13 +53,13 @@ public class CommonExceptionHandler {
         if (exception instanceof MethodArgumentTypeMismatchException) {
             return HttpStatus.BAD_REQUEST;
         }
-        if (exception instanceof CommonException commonException) {
-            return getHttpStatus(commonException);
+        if (exception instanceof NotFoundException notFoundException) {
+            return getHttpStatus(notFoundException);
         }
         return HttpStatus.INTERNAL_SERVER_ERROR;
     }
 
-    private static HttpStatus getHttpStatus(CommonException exception) {
+    private static HttpStatus getHttpStatus(NotFoundException exception) {
         return switch (exception.getErrorCode()) {
             case 1 -> HttpStatus.NOT_FOUND;
             default -> HttpStatus.BAD_REQUEST;
@@ -67,8 +67,8 @@ public class CommonExceptionHandler {
     }
 
     private static int getErrorCode(Exception exception) {
-        if (exception instanceof CommonException commonException) {
-            return commonException.getErrorCode();
+        if (exception instanceof NotFoundException notFoundException) {
+            return notFoundException.getErrorCode();
         }
         return 500;
     }

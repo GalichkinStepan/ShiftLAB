@@ -16,8 +16,4 @@ public interface AnalyticsService {
     // Получить список продавцов с суммой меньше указанной
     public List<Seller> getLowSumSellers(DurationRequest durationRequest, int boundaryAmount);
 
-    // Получить самое продуктивное время продавца
-    public void getBestTime();
-
-
 }

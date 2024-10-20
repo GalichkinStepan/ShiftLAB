@@ -1,10 +1,9 @@
 package ru.cft.ShiftLAB.services.implementation;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.cft.ShiftLAB.controllers.dto.TransactionCreateRequest;
-import ru.cft.ShiftLAB.exceptions.CommonException;
+import ru.cft.ShiftLAB.exceptions.NotFoundException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.models.Transaction;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
@@ -30,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
             return transactions;
         }
         else{
-            throw new CommonException(404, "DATA_IS_EMPTY");
+            throw new NotFoundException(404, "DATA_IS_EMPTY");
         }
     }
 
@@ -41,7 +40,7 @@ public class TransactionServiceImpl implements TransactionService {
             return  transactionRepository.findById(id).get();
         }
         catch (Exception ex) {
-            throw new CommonException(404, "TRANSACTION_NOT_FOUND");
+            throw new NotFoundException(404, "TRANSACTION_NOT_FOUND");
         }
     }
 
@@ -66,7 +65,7 @@ public class TransactionServiceImpl implements TransactionService {
             return transactions;
         }
         else {
-            throw new CommonException(404, "DATA_IS_EMPTY");
+            throw new NotFoundException(404, "DATA_IS_EMPTY");
         }
     }
 }

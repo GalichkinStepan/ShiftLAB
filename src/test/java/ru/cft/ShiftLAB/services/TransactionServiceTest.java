@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.cft.ShiftLAB.controllers.dto.TransactionCreateRequest;
-import ru.cft.ShiftLAB.exceptions.CommonException;
+import ru.cft.ShiftLAB.exceptions.NotFoundException;
 import ru.cft.ShiftLAB.models.Seller;
 import ru.cft.ShiftLAB.models.Transaction;
 import ru.cft.ShiftLAB.repositories.SellerRepository;
@@ -56,7 +56,7 @@ class TransactionServiceTest {
         List<Transaction> emptyListTransactions = new ArrayList<>();
         Mockito.when(transactionRepository.findAll()).thenReturn(emptyListTransactions);
 
-        Assertions.assertThrows(CommonException.class, () -> transactionService.getAll());
+        Assertions.assertThrows(NotFoundException.class, () -> transactionService.getAll());
 
     }
 
@@ -83,7 +83,7 @@ class TransactionServiceTest {
                 .thenReturn(
                         Optional.empty()
                 );
-        Assertions.assertThrows(CommonException.class, () -> transactionService.getById(1));
+        Assertions.assertThrows(NotFoundException.class, () -> transactionService.getById(1));
     }
 
     @Test
@@ -132,6 +132,6 @@ class TransactionServiceTest {
 
         Mockito.when(transactionRepository.getAllForSeller(Mockito.anyLong())).thenReturn(emptyListTransactions);
 
-        Assertions.assertThrows(CommonException.class, () -> transactionService.getAllForSeller(1));
+        Assertions.assertThrows(NotFoundException.class, () -> transactionService.getAllForSeller(1));
     }
 }
