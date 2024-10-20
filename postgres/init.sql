@@ -14,5 +14,3 @@ CREATE TABLE transaction(
     paymentType payment_state,
 	transactionDate date
 );
-
-select * from seller;
